@@ -24,7 +24,7 @@ export class ListPersonasComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  // Inyectamos el servicio de persona y el dialog para abrir el modal de agregar y editar
+  // Inyectamos el servicio de persona y el dialog para abrir el modal de agregar y editar personas
   constructor(public dialog: MatDialog, private _personaService: PersonaService,
     private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource();
@@ -39,7 +39,7 @@ export class ListPersonasComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  // Obtenemos las personas y las seteamos en el dataSource para mostrarlas en la tabla
+  // Obtenemos las personas y las seteamos en el dataSource para mostrarlas en la tabla 
   obtenerPersonas() {
     this.loading = true;
 
@@ -68,9 +68,12 @@ export class ListPersonasComponent implements OnInit, AfterViewInit {
       data: { id: id }
     });
 
+    // Actualizamos la tabla cuando se cierra el modal
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.obtenerPersonas();
+        if (result) {
+          this.obtenerPersonas();
+        }
       }
     });
   }

@@ -93,14 +93,18 @@ export class AgregarEditarPersonaComponent implements OnInit {
 
       // Es agregar
       this._personaService.addPersona(persona).subscribe(() => {
+        this.loading = false;
         this.mensajeExito('agregada');
+        this.dialogRef.close(true);
       })
 
     } else {
 
       // Es editar
       this._personaService.updatePersona(this.id, persona).subscribe(data => {
+        this.loading = false;
         this.mensajeExito('actualizada');
+        this.dialogRef.close(true);
       })
     }
   }
